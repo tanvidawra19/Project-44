@@ -6,6 +6,7 @@ var w;
 var h;
 var bgImg;
 var length = 0;
+var gameState = "play";
 
 function preload() {
   bgImg = loadImage("gameOverScreen.jpg");
@@ -39,6 +40,7 @@ function foodLocation(){
     }
   }
 function draw(){
+  if(gameState === "play"){
     background("black");
   noStroke();
   strokeWeight(0)
@@ -59,19 +61,26 @@ function draw(){
   snake.show();
   
   if(snake.endGame()){
-    snake.visible = false ;
-    food.visible = false ;
-    noLoop();
-    textSize(20);
-    fill("lightblue");
-    stroke("blue");
-    strokeWeight(1);
-    text("GAME OVER !!",300,250);
-    console.log(snake.visible);
-  }
-
+    gameState = "end";
+   }
   stroke("black");
   strokeWeight(0.1);
   fill("red");
   rect(food.x , food.y ,1,1);
+ }
+
+ else if(gameState === "end"){
+   background(bgImg);
+  snake.visible = false ;
+  food.visible = false ;
+  /*noLoop();
+  textSize(20);
+  fill("lightblue");
+  stroke("blue");
+  strokeWeight(1);
+  text("GAME OVER !!",300,250);
+  console.log(snake.visible);
+  */
+ }
 }
+
